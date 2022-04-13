@@ -1,66 +1,83 @@
-#include "dog.h"
 #include <stdlib.h>
+#include "dog.h"
 
 /**
- * _strdup - function that returns a pointer to a newly allocated space in
- * memory, which contains a copy of the string given as a parameter
- * @str: array
- * Return: pointer to a new string, NULL if str = NULL, on success returns a
- * pointer to the duplicated string
+ * _copy - make a copy of passed in argument
+ * @src: Data to make copy of
+ * Return: pointer
  */
 
-char *_strdup(char *str)
+char *_copy(char *src)
 {
-	int i = 0, len = 0;
-	char *p;
+	char *ptr;
+	int i, len;
 
-	if (str == NULL)
+	if (src == NULL)
+	{
 		return (NULL);
-	while (str[len] != '\0')
-		len++;
-	p = malloc((len + 1) * sizeof(char));
-	if (p == NULL)
+	}
+
+	for (len = 0; src[len] != '\0'; len++)
+		;
+
+	ptr = malloc(sizeof(char) * (len + 1));
+
+	if (ptr == NULL)
+	{
 		return (NULL);
-	for (i = 0 ; i < len ; i++)
-		p[i] = str[i];
-	p[i] = '\0';
-	return (p);
+	}
+
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		ptr[i] = src[i];
+	}
+
+	ptr[i] = '\0';
+	return (ptr);
 }
 
 /**
- * new_dog - function that creates a new dog
- *
- * @name: dog name
- * @age: dog age
- * @owner: dog owner name
- *
- * Return: a pointer to the type of dog_t -> struct dog
+ * new_dog - create a new dog variable
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
+ * Return: pointer to new dog variable
  */
 
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *dog;
-	char *tmp1, *tmp2;
+	dog_t *snoopie;
+	char *new_name, *new_owner;
 
-	dog = malloc(sizeof(dog_t));
-	if (dog == NULL)
-		return (NULL);
-	tmp1 = _strdup(name);
-	if (!tmp1)
+	if (name == NULL || owner == NULL)
 	{
-		free(dog);
-		return (NULL);
-	{
-	tmp2 = _strdup(owner);
-	if (!tmp2)
-	{
-		free(tmp1);
-		free(dog);
 		return (NULL);
 	}
 
-	dog->name = tmp1;
-	dog->owner = tmp2;
-	dog->age = age;
-	return (dog);
+	snoopie = malloc(sizeof(dog_t));
+	if (snoopie == NULL)
+	{
+		return (NULL);
+	}
+
+	new_name = _copy(nmae);
+	if (new_name == NULL)
+	{
+		free(snoopie);
+		return (NULL);
+	}
+	(*snoopie).name = new_name;
+
+	(*snoopie).age = age;
+
+	new_owner = _copy(owner);
+	if (new_owner == NULL)
+	{
+		free((*snoopie).name);
+		free(snoopie);
+		return (NULL);
+	}
+	(*snoopie).owner = new_owner;
+
+	return (snoopie);
 }
