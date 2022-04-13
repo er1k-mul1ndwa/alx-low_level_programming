@@ -1,26 +1,30 @@
-#ifndef CALC
-#define CALC
+#include "3-calc.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 /**
- * struct op - struct op
+ * main - program that performs simple operations
  *
- * @op: the operator
- * @f: the function associated
+ * @argc: number of the parameters
+ * @argv: parameters string
+ *
+ * Return: 99 inappropriate operator, 98 wrong number of parameters
+ * 0 - success
  */
-typedef struct op
+int main(int argc, char *argv[])
 {
-	char *op;
-	int (*f)(int a, int b);
-} op_t;
+	int result;
 
-int op_add(int a, int b);
-int op_sub(int a, int b);
-int op_mul(int a, int b);
-int op_div(int a, int b);
-int op_mod(int a, int b);
-int (*get_op_func(char *s))(int, int);
+	if (argc != 4)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+	if (strlen(argv[2]) > 1)
+	{
+		printf("Error\n")
+		exit(99);
+	}
 
-#endif
+	result = get_op_func(argv[2])(atoi(argv[1]), atoi(argv[3]));
+	printf("%d\n", result);
+	return (0);
+}
